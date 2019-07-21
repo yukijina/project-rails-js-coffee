@@ -27,21 +27,27 @@ url
 belongs_to :roaster
 has_many :review_and_favorites
 has_many :users, through: :review_and_favorites
+has_many :locations
 brand
+variety (blended/single origin/espresso)
 taste_note
-variety
-type
-roast_profile
-country
-region
-processing_method
-size
-price
 description
 organic (boolean)
 fairtrade (boolean)
-image (will tray later with active storage?)
 roaster_id
+location (nested)
+(roast_profile (medium/dark..))
+(type)
+(processing_method)
+(size)
+(price)
+image (will tray later with active storage?)
+
+# Location
+has_one :bean
+location_1
+location_2
+location_3
 
 ## review_and_favorite
 belongs_to :user
