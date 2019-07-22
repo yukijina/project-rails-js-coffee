@@ -34,7 +34,7 @@
   <p>Choose Roaster or Create:</p>
   <p>Select a Roaster</p>
     <%= f.hidden_field :bean_id, value: @bean.id %>
-    <%= f.collection_select :roaster_id, Roaster.all, :id, :roaster_name, include_blank: true %>
+    <%= f.collection_select :roaster_id, Roaster.all, :id, :roaster_name, {prompt: "Select"} %>
 
   <p>Or create</p>
   <%= f.fields_for :roaster, @bean.build_roaster do |roaster_f| %>
@@ -48,7 +48,11 @@
   </div>
   <div>
     <%= roaster_f.label :state %>
-    <%= roaster_f.text_field :state %>
+    <%= roaster_f.select :state, options_for_select(us_states), {prompt: "Select"} %>
+  </div>
+  <div>
+    <%= roaster_f.label :description %>
+    <%= roaster_f.text_field :description %>
   </div>
   <div>
     <%= roaster_f.label :url %>
