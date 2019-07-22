@@ -10,6 +10,11 @@ class BeansController < ApplicationController
   def create
     @bean = Bean.new(bean_params)
     @roaster = @bean.build_roaster(bean_params[:roaster_attributes])
+    if @bean.save && @roaster.save
+      render json: @bean, status: 200
+    else
+      render :new
+    end
   end
 
   private
