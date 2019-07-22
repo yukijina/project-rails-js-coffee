@@ -1,0 +1,64 @@
+<h1>Form</h1>
+
+<%= form_for @bean do |f| %>
+  <div>
+    <%= f.label :brand %>
+    <%= f.text_field :brand %>
+  </div>
+  <div>
+    <%= f.label :variety %>
+    <%= f.text_field :variety %>
+  </div>
+  <div>
+    <%= f.label :taste_note %>
+    <%= f.text_field :taste_note %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.label :organic %>
+    <%= f.check_box :organic %>
+  </div>
+  <div>
+    <%= f.label :fairtrade %>
+    <%= f.check_box :fairtrade %>
+  </div>
+  <div>
+    <%= f.label :origin_1 %>
+    <%= f.text_field :origin_1 %>
+  </div>
+
+
+  <p>Choose Roaster or Create:</p>
+  <p>Select a Roaster</p>
+    <%= f.hidden_field :bean_id, value: @bean.id %>
+    <%= f.collection_select :roaster_id, Roaster.all, :id, :roaster_name, include_blank: true %>
+
+  <p>Or create</p>
+  <%= f.fields_for :roaster, @bean.build_roaster do |roaster_f| %>
+  <div>
+    <%= roaster_f.label :roaster_name %>
+    <%= roaster_f.text_field :roaster_name %>
+  </div>
+  <div>
+    <%= roaster_f.label :city %>
+    <%= roaster_f.text_field :city %>
+  </div>
+  <div>
+    <%= roaster_f.label :state %>
+    <%= roaster_f.text_field :state %>
+  </div>
+  <div>
+    <%= roaster_f.label :url %>
+    <%= roaster_f.text_field :url %>
+  </div>
+  <% end %>
+
+  <div>
+    <%= f.submit %>
+  </div>
+
+
+<% end %>
