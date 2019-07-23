@@ -29,6 +29,7 @@
     <%= f.label :origin_1 %>
     <%= f.text_field :origin_1 %>
   </div>
+  <a href="#" id="js-btn-origin">+ Add Origin</a>
 
 
   <p>Choose Roaster or Create:</p>
@@ -36,33 +37,44 @@
     <%= f.hidden_field :bean_id, value: @bean.id %>
     <%= f.collection_select :roaster_id, Roaster.all, :id, :roaster_name, {prompt: "Select"} %>
 
-  <p>Or create</p>
-  <%= f.fields_for :roaster, @bean.build_roaster do |roaster_f| %>
-  <div>
-    <%= roaster_f.label :roaster_name %>
-    <%= roaster_f.text_field :roaster_name %>
+  <a href="#" id="create-roaster">Or Create a new Roaster</a>
+  <div id="js-new-roaster">
+    <%= f.fields_for :roaster, @bean.build_roaster do |roaster_f| %>
+    <div>
+      <%= roaster_f.label :roaster_name %>
+      <%= roaster_f.text_field :roaster_name %>
+    </div>
+    <div>
+      <%= roaster_f.label :city %>
+      <%= roaster_f.text_field :city %>
+    </div>
+    <div>
+      <%= roaster_f.label :state %>
+      <%= roaster_f.select :state, options_for_select(us_states), {prompt: "Select"} %>
+    </div>
+    <div>
+      <%= roaster_f.label :description %>
+      <%= roaster_f.text_field :description %>
+    </div>
+    <div>
+      <%= roaster_f.label :url %>
+      <%= roaster_f.text_field :url %>
+    </div>
+    <% end %>
   </div>
-  <div>
-    <%= roaster_f.label :city %>
-    <%= roaster_f.text_field :city %>
-  </div>
-  <div>
-    <%= roaster_f.label :state %>
-    <%= roaster_f.select :state, options_for_select(us_states), {prompt: "Select"} %>
-  </div>
-  <div>
-    <%= roaster_f.label :description %>
-    <%= roaster_f.text_field :description %>
-  </div>
-  <div>
-    <%= roaster_f.label :url %>
-    <%= roaster_f.text_field :url %>
-  </div>
-  <% end %>
 
   <div>
     <%= f.submit %>
   </div>
 
-
 <% end %>
+
+<div>
+  <p id="brand"></p>
+  <p id="variety"></p>
+  <p id="tasteNote"></p>
+  <p id="description"></p>
+  <p id="organic"></p>
+  <p id="fairTrade"></p>
+  <p id="origin_1"></p>
+</div>
