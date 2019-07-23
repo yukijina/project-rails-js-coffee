@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user && @user.save
       session[:user_id] = @user.id
-      #redirect to beans index page
+      redirect to beans_path
     else
       render :new
     end
