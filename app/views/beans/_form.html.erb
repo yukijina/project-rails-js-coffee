@@ -37,8 +37,10 @@
     <%= f.hidden_field :bean_id, value: @bean.id %>
     <%= f.collection_select :roaster_id, Roaster.all, :id, :roaster_name, {prompt: "Select"} %>
 
+<br>
+<br>
   <a href="#" id="create-roaster">Or Create a new Roaster</a>
-  <div id="js-new-roaster">
+  <div id="js-new-roaster" style="display:none;">
     <%= f.fields_for :roaster, @bean.build_roaster do |roaster_f| %>
     <div>
       <%= roaster_f.label :roaster_name %>

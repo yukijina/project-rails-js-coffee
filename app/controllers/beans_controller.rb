@@ -18,9 +18,17 @@ class BeansController < ApplicationController
     end
 
     if @bean.save
-      render json: @bean, status: 200
+      render json: @bean, status: 201
     else
       render :new
+    end
+  end
+
+  def show
+    @bean = Bean.find_by(id: params[:id])
+    respond_to do |format|
+      format.html { render :show}
+      format.json { render json: @bean}
     end
   end
 
