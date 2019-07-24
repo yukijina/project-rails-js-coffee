@@ -1,6 +1,10 @@
 class BeansController < ApplicationController
   def index
     @beans = Bean.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @beans}
+    end
   end
 
   def new
