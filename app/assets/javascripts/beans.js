@@ -21,7 +21,7 @@ Bean.prototype.formatHTML = function() {
           <h2>Brand: ${this.brand}</h2>
           <p>Variety: ${this.variety}</p>
           <p>Taste Note: ${this.tasteNote}</p>
-          <p>Description: ${this.description.substring(0, 20)}...</p>
+          <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
           <button class="js-more", data-id="${this.id}">More Info</button>
           </div>`
 }
@@ -38,14 +38,18 @@ function listeningPageLoad() {
   })
 }
 
+//Click more info -> display whole description sentence
 function moreInfoClick() {
   $('.js-more').on('click', function(e) {
     console.log("fire!")
     e.preventDefault();
     let id = this.dataset.id;
-    console.log(id)
     $.get("/beans/" + id + ".json", function(beanData) {
-      console.log(beanData)
+      let data = new Bean(beanData)
+      console.log(data)
+      const postDescription = document.querySelector(`.js-description-${id}`)
+      console.log(postDescription)
+      postDescription.innerText = `Desctiption:  ${data.description}`
     })
   })
 }
