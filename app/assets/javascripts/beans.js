@@ -22,7 +22,8 @@ Bean.prototype.formatHTML = function() {
           <p>Variety: ${this.variety}</p>
           <p>Taste Note: ${this.tasteNote}</p>
           <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
-          <button class="js-more", data-id="${this.id}">More Info</button>
+          <button class="js-more", data-id="${this.id}">More</button>
+          <a href="beans/${this.id}">Go to this bean's page</a>
           </div>`
 }
 
@@ -33,13 +34,13 @@ function listeningPageLoad() {
       const formatHTML = beanData.formatHTML()
       const testDiv = document.getElementById('test')
       testDiv.innerHTML += formatHTML
-      moreInfoClick()
+      moreClick()
     })
   })
 }
 
-//Click more info -> display whole description sentence
-function moreInfoClick() {
+//Click more -> display whole description sentence
+function moreClick() {
   $('.js-more').on('click', function(e) {
     console.log("fire!")
     e.preventDefault();
