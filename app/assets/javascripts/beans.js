@@ -1,7 +1,8 @@
 $(function() {
   console.log("Loading page done!")
-  //index.html.erb
-  listeningPageLoad()
+  if (window.location.pathname === "/beans") {
+    listeningPageLoad()
+  }
 })
 
 class Bean {
@@ -12,7 +13,6 @@ class Bean {
     this.description = data.description;
     this.id = data.id;
     this.roasterName = data.roaster.roaster_name
-
   }
 }
 
@@ -22,35 +22,33 @@ Bean.prototype.formatHTML = function() {
           <p>Variety: ${this.variety}</p>
           <p>Taste Note: ${this.tasteNote}</p>
           <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
-          <button class="js-more", data-id="${this.id}">More</button>
-          <a href="beans/${this.id}">Go to this bean's page</a>
+          <button class="js-more", data-id="${this.id}">Read more</button>
+          <a href="/beans/${this.id}" class="js-bean" data-id="${this.id}">More about this bean</a>
           </div>`
 }
 
 function listeningPageLoad() {
   $.get('/beans' + '.json', function(jsonData) {
     jsonData.forEach(function(data) {
-      const beanData = new Bean(data)
-      const formatHTML = beanData.formatHTML()
-      const testDiv = document.getElementById('test')
-      testDiv.innerHTML += formatHTML
+      const beanInstance = new Bean(data)
+      const formatHTML = beanInstance.formatHTML()
+      const beansWrapper = document.getElementById('beans-wrapper')
+      beansWrapper.innerHTML += formatHTML
       moreClick()
     })
   })
 }
 
-//Click more -> display whole description sentence
+//Click js-more (Read more)-> display whole description
 function moreClick() {
   $('.js-more').on('click', function(e) {
     console.log("fire!")
     e.preventDefault();
     let id = this.dataset.id;
+    //let beanData = getBeanData(id)
     $.get("/beans/" + id + ".json", function(beanData) {
-      let data = new Bean(beanData)
-      console.log(data)
       const postDescription = document.querySelector(`.js-description-${id}`)
-      console.log(postDescription)
-      postDescription.innerText = `Desctiption:  ${data.description}`
+      postDescription.innerText = `Desctiption:  ${beanData.description}`
     })
   })
 }
