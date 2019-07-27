@@ -19,3 +19,16 @@ bluebottle_three = Bean.create(brand: "Three Africas", variety: "Single Origin",
 bluebottle_donovan = Bean.create(brand: "Bella Donovan", variety: "Blend", taste_note: "Raspberry, chocolate, molasses", description: "Bella Donovan is the wool sweater of our blends—comforting, cozy, and enveloping. Our most popular blend, Bella is a variation of the archetypal Moka-Java pairing, in which a wild and jammy natural from Ethiopia finds balance with more substantive coffees from Sumatra and Peru. It stands on the darker side of things, weathers the rigors of the automatic drip machine well, and stands up to milk or cream—though it is just as elegant black.", organic: true ,fairtrade: false, roaster_id: 1, origin_1: "Ethiopia", origin_2: "Sumatra", origin_3: "Peru")
 
 sightglass_blue = Bean.create(brand: "Blueboon", variety: "Blend", taste_note: "Milk Chocolate, Mandarin, Honeysuckle", description: "This well-balanced, versatile blend celebrates simple, approachable flavors of milk chocolate, citrus, and stone fruits. We change the components seasonally, so the coffees are always fresh and the balance of sweetness, body, and acidity is just right.", organic: false, fairtrade: false, roaster_id: 2, origin_1: "Central America", origin_2: "East Africa")
+
+# User
+user1 = User.create(username: "user 1", email: "user1@test.com", password: "test")
+user2 = User.create(username: "user 2", email: "user2@test.com", password: "test")
+user3 = User.create(username: "user 3", email: "user3@test.com", password:"test")
+
+
+# Favorite and Comments
+f1 = FavoriteAndComment.create(favorite: true, comments: "I love this beans. Fresh light roast, amazing flavor.", user_id: 1, bean_id: 1)
+f2 = FavoriteAndComment.create(favorite: true, comments: "Taste wondeful. Must have this coffee everyday!", user_id: 1, bean_id: 2)
+f3 = FavoriteAndComment.create(favorite: false, comments: "I enjoyed raspberry taste note. Very fresh", user_id: 2, bean_id: 2)
+f4 = FavoriteAndComment.create(favorite: true, comments: "Feels a bit dark but it is my favorite.", user_id: 3, bean_id: 3)
+f5 = FavoriteAndComment.create(favorite: true, comments: nil, user_id: 3, bean_id: 1)

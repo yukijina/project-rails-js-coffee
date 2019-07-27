@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190722014915) do
+ActiveRecord::Schema.define(version: 20190727213950) do
 
   create_table "beans", force: :cascade do |t|
     t.string   "brand"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 20190722014915) do
     t.string   "origin_1"
     t.string   "origin_2"
     t.string   "origin_3"
+  end
+
+  create_table "favorite_and_comments", force: :cascade do |t|
+    t.boolean  "favorite",   default: false
+    t.string   "comments"
+    t.integer  "user_id"
+    t.integer  "bean_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "roasters", force: :cascade do |t|
