@@ -13,6 +13,7 @@ class Bean {
     this.description = data.description;
     this.id = data.id;
     this.roasterName = data.roaster.roaster_name
+    this.roaster_id = data.roaster.id
   }
 }
 
@@ -23,7 +24,7 @@ Bean.prototype.formatHTML = function() {
           <p>Taste Note: ${this.tasteNote}</p>
           <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
           <button class="js-more", data-id="${this.id}">Read more</button>
-          <a href="/beans/${this.id}" class="js-bean" data-id="${this.id}">More about this bean</a>
+          <a href="/roasters/${this.roaster_id}/beans/${this.id}" class="js-bean" data-id="${this.id}">More about this bean</a>
           </div>`
 }
 
