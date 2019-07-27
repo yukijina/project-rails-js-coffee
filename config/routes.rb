@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :beans
-  resources :roasters
+  resources :beans, only: [:index]
+  resources :roasters do
+    resources :beans
+  end
   root 'sessions#home'
 
   get '/signin', to: 'sessions#new'
@@ -8,5 +10,5 @@ Rails.application.routes.draw do
   get  '/signup', to: 'users#new'
 
   resources :users, only: [:show, :create]
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
 end
