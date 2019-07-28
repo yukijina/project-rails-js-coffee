@@ -2,5 +2,36 @@
 
 <div id="bean-wrapper">
   <h2><%= @bean.brand %></h2>
+  <p>&#9734; <%= @bean.favorite_and_comments.size %> user's favorite bean</p>
   <p><%= @bean.description %></p>
+</div>
+
+<div>
+  <h3>Comments</h3>
+  <div>
+  <% if @fav_com.exists? %>
+    <% @fav_com.each do |fc| %>
+      <% if !fc.comments.nil? %>
+        <h5><%= fc.user.username %>: </h5>
+        <p><%= fc.comments %></p>
+      <% end %>
+    <% end %>
+  <% end %>
+  </div>
+</div>
+
+<%= button_to comments_path do %>
+  Add to your Favorite
+  <input type="hidden" name="favorite_and_comments[bean_id]" value="<%= @bean.id %>">
+<% end %>
+
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<button class="create-comment">Leave comments</button>
+<div id="comment-form">
+  <%= form_for @bean, url: {action: "create"} do |f| %>
+    <%= f.text_field :brand %>
+  <% end %>
 </div>
