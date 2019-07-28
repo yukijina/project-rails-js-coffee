@@ -2,6 +2,8 @@ $(function() {
   console.log("Loading page done!")
   if (window.location.pathname === "/beans") {
     listeningPageLoad()
+  } else {
+    displayCommentForm()
   }
 })
 
@@ -15,7 +17,15 @@ class Bean {
     this.roasterName = data.roaster.roaster_name
     this.roaster_id = data.roaster.id
   }
-}
+  static newCommentFrom() {
+    return `
+    <form method="post">
+      <label for="comments"></label>
+      <textarea type="text" value="comments"></textarea>
+      <input type="submit" />
+    </form>`
+  };
+};
 
 Bean.prototype.formatHTML = function() {
   return `<div class="BeanCard-${this.id}">
@@ -23,11 +33,14 @@ Bean.prototype.formatHTML = function() {
           <p>Variety: ${this.variety}</p>
           <p>Taste Note: ${this.tasteNote}</p>
           <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
-          <button class="js-more", data-id="${this.id}">Read more</button>
+          <button class="js-more", data-id="${this.id}", data-roasterid="${this.roaster_id}">Read more</button>
           <a href="/roasters/${this.roaster_id}/beans/${this.id}" class="js-bean" data-id="${this.id}">More about this bean</a>
           </div>`
 }
 
+
+
+// Index Page
 function listeningPageLoad() {
   $.get('/beans' + '.json', function(jsonData) {
     jsonData.forEach(function(data) {
@@ -46,16 +59,27 @@ function moreClick() {
     console.log("fire!")
     e.preventDefault();
     let id = this.dataset.id;
-    //let beanData = getBeanData(id)
-    $.get("/beans/" + id + ".json", function(beanData) {
+    let roasterId = this.dataset.roasterid;
+    $.get("/roasters/" + roasterId + "/beans/" + id + ".json", function(beanData) {
       const postDescription = document.querySelector(`.js-description-${id}`)
       postDescription.innerText = `Desctiption:  ${beanData.description}`
     })
   })
 }
 
+//Show Page
+function displayCommentForm() {
+  document.getElementById("comment-btn").addEventListener("click", function() {
+    const div= document.getElementById("comment-form")
+    if (div.style.display === "none") {
+      div.style.display = "block";
+    } else {
+      div.style.display = "none";
+    }
+  })
+}
 
-//**new.html.erb**
+
 //Add origin
 //Remove origin
 
