@@ -21,6 +21,15 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    if session[:user_id].present?
+      session.delete :user_id
+      redirect_to root_path
+    else
+      session[:user_id] = nil
+    end 
+  end
+
   private
   def user_params
     params.require(:user).permit(:username, :email, :password)
