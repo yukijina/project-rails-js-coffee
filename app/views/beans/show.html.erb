@@ -32,10 +32,12 @@
 
 <hr>
 
-<div id="comment-form">
+<button type="button" id="comment-btn">Commment Form</button>
+
+<div id="comment-form", style="display: none;">
   <%= form_for @bean.favorite_and_comments.build, url: :comments do |f| %>
     <%= f.hidden_field :bean_id, :value => @bean.id %>
     <%= f.text_area :comments %>
-    <%= f.submit "Leave Comment" %>
+    <%= f.submit "Submit" %>
   <% end %>
 </div>
