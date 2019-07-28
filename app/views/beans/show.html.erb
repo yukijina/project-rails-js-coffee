@@ -21,17 +21,21 @@
 </div>
 
 <%= button_to comments_path do %>
-  Add to your Favorite
-  <input type="hidden" name="favorite_and_comments[bean_id]" value="<%= @bean.id %>">
+  Want to add to my Favorite!
+  <input type="hidden" name="favorite_and_comment[bean_id]" value="<%= @bean.id %>">
+  <input type="hidden" name="favorite_and_comment[favorite]" value="<%= true %>">
 <% end %>
 
 <% if flash[:notice] %>
   <div class="notice"><%= flash[:notice] %></div>
 <% end %>
 
-<button class="create-comment">Leave comments</button>
+<hr>
+
 <div id="comment-form">
-  <%= form_for @bean, url: {action: "create"} do |f| %>
-    <%= f.text_field :brand %>
+  <%= form_for @bean.favorite_and_comments.build, url: :comments do |f| %>
+    <%= f.hidden_field :bean_id, :value => @bean.id %>
+    <%= f.text_area :comments %>
+    <%= f.submit "Leave Comment" %>
   <% end %>
 </div>
