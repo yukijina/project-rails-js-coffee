@@ -30,11 +30,13 @@ class BeansController < ApplicationController
 
   def show
     @bean = Bean.find_by(id: params[:id])
+    @fav_com = @bean.favorite_and_comments
     respond_to do |format|
       format.html { render :show}
       format.json { render json: @bean}
     end
   end
+
 
   private
   def bean_params
