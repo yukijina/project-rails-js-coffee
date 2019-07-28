@@ -3,12 +3,13 @@ Rails.application.routes.draw do
   resources :roasters do
     resources :beans
   end
-  root 'sessions#home'
+
+  resources :favorite_and_comments, as: :comments
+  resources :users, only: [:show, :new, :create]
 
   get '/signin', to: 'sessions#new'
   post '/signin', to: 'sessions#create'
   get  '/signup', to: 'users#new'
 
-  resources :users, only: [:show, :create]
-
+  root 'sessions#home'
 end
