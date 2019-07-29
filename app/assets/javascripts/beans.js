@@ -2,8 +2,10 @@ $(function() {
   console.log("Loading page done!")
   if (window.location.pathname === "/beans") {
     listeningPageLoad()
+  } else if (window.location.pathname === "/beans/new") {
+    loadNewPage()
+    clickRoasterForm()
   } else {
-    displayCommentForm()
   }
 })
 
@@ -17,14 +19,14 @@ class Bean {
     this.roasterName = data.roaster.roaster_name
     this.roaster_id = data.roaster.id
   }
-  static newCommentFrom() {
-    return `
-    <form method="post">
-      <label for="comments"></label>
-      <textarea type="text" value="comments"></textarea>
-      <input type="submit" />
-    </form>`
-  };
+  // static newCommentFrom() {
+  //   return `
+  //   <form method="post">
+  //     <label for="comments"></label>
+  //     <textarea type="text" value="comments"></textarea>
+  //     <input type="submit" />
+  //   </form>`
+  // };
 };
 
 Bean.prototype.formatHTML = function() {
@@ -38,8 +40,6 @@ Bean.prototype.formatHTML = function() {
           </div>`
 }
 
-
-
 // Index Page
 function listeningPageLoad() {
   $.get('/beans' + '.json', function(jsonData) {
@@ -49,6 +49,7 @@ function listeningPageLoad() {
       const beansWrapper = document.getElementById('beans-wrapper')
       beansWrapper.innerHTML += formatHTML
       moreClick()
+      //clickBeanForm()
     })
   })
 }
@@ -56,7 +57,7 @@ function listeningPageLoad() {
 //Click js-more (Read more)-> display whole description
 function moreClick() {
   $('.js-more').on('click', function(e) {
-    console.log("fire!")
+    console.log("Read more clicked!")
     e.preventDefault();
     let id = this.dataset.id;
     let roasterId = this.dataset.roasterid;
@@ -67,7 +68,19 @@ function moreClick() {
   })
 }
 
+// New Form (Ruby)
+function loadNewPage() {
+  console.log("new page now")
+}
+
+
 //Show Page
+function displayShowPage() {
+  document.getElementById('bean-wrapper').dataset.beanid
+  //$.get("/roasters/" + roasterId + "/beans/" + beanId)
+}
+
+//- display comment form
 function displayCommentForm() {
   document.getElementById("comment-btn").addEventListener("click", function() {
     const div= document.getElementById("comment-form")
@@ -80,20 +93,18 @@ function displayCommentForm() {
 }
 
 
-//Add origin
-//Remove origin
-
-//Create a new Roaster - column show up
-// $('#create-roaster').on('click', function(e) {
-//   e.preventDefault();
-//   const divRoaster = document.getElementById('js-new-roaster')
-//   if (divRoaster.style.display === "none") {
-//     divRoaster.style.display = "block"
-//   } else {
-//     divRoaster.style.display = "none"
-//   }
-//
-// })
+//New page - Roaster column show up
+function clickRoasterForm() {
+  $('#js-create-roaster-btn').on('click', function(e) {
+    e.preventDefault();
+    const divRoaster = document.getElementById('js-new-roaster')
+    if (divRoaster.style.display === "none") {
+      divRoaster.style.display = "block"
+    } else {
+      divRoaster.style.display = "none"
+    }
+  })
+}
 
 //
 // $("form").submit(function(e) {
