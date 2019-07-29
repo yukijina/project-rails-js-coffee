@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :beans, only: [:index]
+  resources :beans
   resources :roasters do
     resources :beans
   end
