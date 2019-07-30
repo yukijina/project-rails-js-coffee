@@ -1,11 +1,10 @@
-<h1>Bean show page</h1>
+<h1>Coffee Bean show page</h1>
 
 <div id="bean-wrapper" data-beanid="<%= @bean.id %>" data-roasterid=<%= @bean.roaster.id %>>
-  
-  <h2><%= @bean.brand %></h2>
-  <p>&#9734; <%= @bean.favorite_and_comments.size %> user's favorite bean</p>
-  <p><%= @bean.description %></p>
+
 </div>
+<hr>
+<p>&#9734; <%= @bean.favorite_and_comments.size %> user's favorite bean</p>
 
 <div>
   <h3>Comments</h3>
