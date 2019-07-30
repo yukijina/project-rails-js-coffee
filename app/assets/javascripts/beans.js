@@ -6,6 +6,7 @@ $(function() {
     loadNewPage()
     clickRoasterForm()
   } else {
+    displayShowPage()
   }
 })
 
@@ -30,20 +31,20 @@ class Bean {
 };
 
 Bean.prototype.formatHTML = function() {
-  return `<div class="BeanCard-${this.id}">
+  return `<div class="bean-card-${this.id}">
           <h2>Brand: ${this.brand}</h2>
           <p>Variety: ${this.variety}</p>
           <p>Taste Note: ${this.tasteNote}</p>
           <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
           <button class="js-more", data-id="${this.id}", data-roasterid="${this.roaster_id}">Read more</button>
-          <a href="/roasters/${this.roaster_id}/beans/${this.id}" class="js-bean" data-id="${this.id}">More about this bean</a>
+          <a href="/roasters/${this.roaster_id}/beans/${this.id}" class="js-show-page-btn" data-id="${this.id}">More about this bean</a>
           </div>`
 }
 
 // Index Page
 function listeningPageLoad() {
-  $.get('/beans' + '.json', function(jsonData) {
-    jsonData.forEach(function(data) {
+  $.get('/beans' + '.json', function(res) {
+    res.forEach(function(data) {
       const beanInstance = new Bean(data)
       const formatHTML = beanInstance.formatHTML()
       const beansWrapper = document.getElementById('beans-wrapper')
@@ -73,11 +74,17 @@ function loadNewPage() {
   console.log("new page now")
 }
 
-
 //Show Page
 function displayShowPage() {
-  document.getElementById('bean-wrapper').dataset.beanid
-  //$.get("/roasters/" + roasterId + "/beans/" + beanId)
+  console.log("Show called!")
+  let div = document.getElementById("bean-wrapper")
+  let beanId = div.dataset.beanid
+  let roasterId = div.dataset.roasterid
+  $.get("/roasters/" + roasterId + "/beans/" + beanId + ".json", function(res) {
+    const bean = new Bean(res).formatHTML();
+    div.innerHTML += bean
+    displayCommentForm()
+  })
 }
 
 //- display comment form
