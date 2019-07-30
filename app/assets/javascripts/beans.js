@@ -35,20 +35,39 @@ Bean.prototype.formatHTML = function() {
           <h2>Brand: ${this.brand}</h2>
           <p>Variety: ${this.variety}</p>
           <p>Taste Note: ${this.tasteNote}</p>
-          <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
-          <button class="js-more", data-id="${this.id}", data-roasterid="${this.roaster_id}">Read more</button>
-          <a href="/roasters/${this.roaster_id}/beans/${this.id}" class="js-show-page-btn" data-id="${this.id}">More about this bean</a>
-          </div>`
+        ` // end of </div> ->indexHTML or showHTML
+}
+
+Bean.prototype.indexHTML = function() {
+  return `
+    <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
+    <button class="js-more", data-id="${this.id}", data-roasterid="${this.roaster_id}">Read more</button>
+    <a href="/roasters/${this.roaster_id}/beans/${this.id}" class="js-show-page-btn" data-id="${this.id}">More about this bean</a>
+    </div>
+  `
+}
+
+Bean.prototype.showHTML = function() {
+  return `
+    <p class="js-description-${this.id}">Description: ${this.description}</p>
+    <p>Organic: ${this.organic}</p>
+    <p>Fair Trade: ${this.fairtrade}</p>
+    <p>Origin: ${this.origin_1}</p>
+    <p>Origin: ${this.origin_2}</p>
+    <p>Origin: ${this.origin_3}</p>
+    </div>
+  `
 }
 
 // Index Page
 function listeningPageLoad() {
   $.get('/beans' + '.json', function(res) {
     res.forEach(function(data) {
-      const beanInstance = new Bean(data)
-      const formatHTML = beanInstance.formatHTML()
+      const bean = new Bean(data);
+      const formatHTML = bean.formatHTML();
+      const indexHTML = bean.indexHTML();
       const beansWrapper = document.getElementById('beans-wrapper')
-      beansWrapper.innerHTML += formatHTML
+      beansWrapper.innerHTML += formatHTML + indexHTML;
       moreClick()
       //clickBeanForm()
     })
@@ -81,8 +100,12 @@ function displayShowPage() {
   let beanId = div.dataset.beanid
   let roasterId = div.dataset.roasterid
   $.get("/roasters/" + roasterId + "/beans/" + beanId + ".json", function(res) {
-    const bean = new Bean(res).formatHTML();
-    div.innerHTML += bean
+    const bean = new Bean(res)
+    const formatHTML = bean.formatHTML();
+    const showHTML = bean.showHTML();
+
+    div.innerHTML += formatHTML + showHTML;
+  
     displayCommentForm()
   })
 }
