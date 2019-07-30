@@ -16,6 +16,11 @@ class Bean {
     this.variety = data.variety;
     this.tasteNote = data.taste_note;
     this.description = data.description;
+    this.organic = data.organic;
+    this.fairtrade = data.fairtrade;
+    this.origin_1 = data.origin_1;
+    this.origin_2 = data.origin_2;
+    this.origin_3 = data.origin_3;
     this.id = data.id;
     this.roasterName = data.roaster.roaster_name
     this.roaster_id = data.roaster.id
@@ -55,6 +60,22 @@ Bean.prototype.showHTML = function() {
     <p>Origin: ${this.origin_1}</p>
     <p>Origin: ${this.origin_2}</p>
     <p>Origin: ${this.origin_3}</p>
+    </div>
+  `
+}
+
+class Comment {
+  constructor(data) {
+    this.id = data.id;
+    this.favorite = data.favorite;
+    this.comments = data.comments;
+  }
+}
+
+Comment.prototype.commentHTML = function() {
+  return `
+    <div>
+      <h4></h4>
     </div>
   `
 }
@@ -105,10 +126,15 @@ function displayShowPage() {
     const showHTML = bean.showHTML();
 
     div.innerHTML += formatHTML + showHTML;
-  
-    displayCommentForm()
+
+
+    displayCommentForm();
   })
 }
+
+// Show page - Display comments
+
+
 
 //- display comment form
 function displayCommentForm() {
