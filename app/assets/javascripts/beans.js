@@ -25,14 +25,6 @@ class Bean {
     this.roasterName = data.roaster.roaster_name
     this.roaster_id = data.roaster.id
   }
-  // static newCommentFrom() {
-  //   return `
-  //   <form method="post">
-  //     <label for="comments"></label>
-  //     <textarea type="text" value="comments"></textarea>
-  //     <input type="submit" />
-  //   </form>`
-  // };
 };
 
 Bean.prototype.formatHTML = function() {
@@ -113,11 +105,6 @@ function moreClick() {
   })
 }
 
-// New Form (Ruby)
-function loadNewPage() {
-  console.log("new page now")
-}
-
 //Show Page
 function displayShowPage() {
   console.log("Show called!")
@@ -163,6 +150,28 @@ function clickRoasterForm() {
     }
   })
 }
+
+// New Form (Ruby)
+function loadNewPage() {
+  console.log("new page now")
+  toggleOriginBtn();
+}
+
+function toggleOriginBtn() {
+  document.getElementById("js-btn-origin").addEventListener("click", function(e) {
+    e.preventDefault();
+    console.log("orign btn clicked")
+    let originDiv = document.getElementsByClassName("origin");
+    for (let i = 0; i < originDiv.length; i++) {
+      if (originDiv[i].style.display === "none") {
+        originDiv[i].style.display = "block"
+      } else {
+        originDiv[i].style.display = "none"
+      }
+    }
+  })
+}
+
 
 //
 // $("form").submit(function(e) {
