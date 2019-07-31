@@ -1,24 +1,17 @@
 <h1>Coffee Bean show page</h1>
 
 <div id="bean-wrapper" data-beanid="<%= @bean.id %>" data-roasterid=<%= @bean.roaster.id %>>
-
+  <!-- render bean details via js -->
 </div>
+
 <hr>
-<p>&#9734; <%= @bean.favorite_and_comments.size %> user's favorite bean</p>
+<p>&#10084; <%= @bean.favorite_and_comments.size %> user's favorite bean</p>
 
-<div>
+<div id="comments-wrapper">
   <h3>Comments</h3>
-  <div>
-  <% if @fav_com.exists? %>
-    <% @fav_com.each do |fc| %>
-      <% if !fc.comments.nil? %>
-        <h5><%= fc.user.username %>: </h5>
-        <p><%= fc.comments %></p>
-      <% end %>
-    <% end %>
-  <% end %>
-  </div>
+  <!-- render comments via js -->
 </div>
+
 
 <%= button_to comments_path do %>
   Want to add to my Favorite!
@@ -30,14 +23,28 @@
   <div class="notice"><%= flash[:notice] %></div>
 <% end %>
 
-<hr>
-
 <button type="button" id="comment-btn">Commment Form</button>
 
-<div id="comment-form", style="display: none;">
+<div id="comment-form" style="display: none;">
   <%= form_for @bean.favorite_and_comments.build, url: :comments do |f| %>
     <%= f.hidden_field :bean_id, :value => @bean.id %>
     <%= f.text_area :comments %>
     <%= f.submit "Submit" %>
   <% end %>
 </div>
+
+
+
+
+<!-- Display comments via Ruby -->
+<!--<div>
+  <%# if @fav_com.exists? %>
+  <%# @fav_com.each do |fc| %>
+  <%# if !fc.comments.nil? %>
+  <h5><%#= fc.user.username %>: </h5>
+  <p><%#= fc.comments %></p>
+  <%# end %>
+  <%# end %>
+  <%# end %>
+</div>
+</div>-->
