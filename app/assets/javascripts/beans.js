@@ -40,13 +40,13 @@ Bean.prototype.formatHTML = function() {
           <h2>Brand: ${this.brand}</h2>
           <p>Variety: ${this.variety}</p>
           <p>Taste Note: ${this.tasteNote}</p>
-        ` // end of </div> ->indexHTML or showHTML
+        ` // Need </div> ->indexHTML or showHTML
 }
 
 Bean.prototype.indexHTML = function() {
   return `
     <p class="js-description-${this.id}">Description: ${this.description.substring(0, 20)}...</p>
-    <button class="js-more", data-id="${this.id}", data-roasterid="${this.roaster_id}">Read more</button>
+    <button class="js-more" data-id="${this.id}" data-roasterid="${this.roaster_id}">Read more</button>
     <a href="/roasters/${this.roaster_id}/beans/${this.id}" class="js-show-page-btn" data-id="${this.id}">More about this bean</a>
     </div>
   `
@@ -69,15 +69,19 @@ class Comment {
     this.id = data.id;
     this.favorite = data.favorite;
     this.comments = data.comments;
+    this.username = data.user.username;
   }
 }
 
 Comment.prototype.commentHTML = function() {
-  return `
-    <div>
-      <h4></h4>
-    </div>
-  `
+  if (this.comments !== null) {
+    return `
+      <div>
+      <h4>${this.username}</h4>
+      <p>${this.comments}</p>
+      </div>
+    `
+  }
 }
 
 // Index Page
@@ -117,27 +121,25 @@ function loadNewPage() {
 //Show Page
 function displayShowPage() {
   console.log("Show called!")
-  let div = document.getElementById("bean-wrapper")
-  let beanId = div.dataset.beanid
-  let roasterId = div.dataset.roasterid
+  let div = document.getElementById("bean-wrapper");
+  let beanId = div.dataset.beanid;
+  let roasterId = div.dataset.roasterid;
   $.get("/roasters/" + roasterId + "/beans/" + beanId + ".json", function(res) {
-    const bean = new Bean(res)
-    const formatHTML = bean.formatHTML();
-    const showHTML = bean.showHTML();
+    const bean = new Bean(res);
+    const formatText = bean.formatHTML();
+    const showText = bean.showHTML();
 
-    div.innerHTML += formatHTML + showHTML;
-
-
-    displayCommentForm();
+    div.innerHTML += formatText + showText;
+    let commentText = res.favorite_and_comments.map(function(favCom) {
+      return new Comment(favCom).commentHTML();
+    }).join("")  // join("") removes comma in array
+    document.getElementById("comments-wrapper").innerHTML += commentText;
+    toggleCommentForm();
   })
 }
 
-// Show page - Display comments
-
-
-
-//- display comment form
-function displayCommentForm() {
+//- toggle comment form
+function toggleCommentForm() {
   document.getElementById("comment-btn").addEventListener("click", function() {
     const div= document.getElementById("comment-form")
     if (div.style.display === "none") {
@@ -153,7 +155,7 @@ function displayCommentForm() {
 function clickRoasterForm() {
   $('#js-create-roaster-btn').on('click', function(e) {
     e.preventDefault();
-    const divRoaster = document.getElementById('js-new-roaster')
+    const divRoaster = document.getElementById('js-new-roaster');
     if (divRoaster.style.display === "none") {
       divRoaster.style.display = "block"
     } else {
