@@ -155,6 +155,7 @@ function clickRoasterForm() {
 function loadNewPage() {
   console.log("new page now")
   toggleOriginBtn();
+  postBean();
 }
 
 function toggleOriginBtn() {
@@ -172,18 +173,17 @@ function toggleOriginBtn() {
   })
 }
 
-
-//
-// $("form").submit(function(e) {
-//   e.preventDefault();
-//   const values = $(this).serialize();
-//   const posting = $.post('/beans', values)
-//   posting.done(function(beanData) {
-//     $('#brand').text(beanData["brand"])
-//     $('#tasteNote').text(beanData["taste_note"])
-//     $('#description').text(beanData["description"])
-//     $('#organic').text(beanData["organic"])
-//     $('#fairTrade').text(beanData["fairtrade"])
-//     $('#origin_1').text(beanData["origin_1"])
-//   })
-// })
+function postBean() {
+  $("form").submit(function(e) {
+    e.preventDefault();
+    console.log("submit!")
+    const values = $(this).serialize();
+    const posting = $.post('/beans', values)
+    posting.done(function(beanData) {
+      console.log(beanData)
+      alert("Form was successfully submitted!")
+      //reidrect to show page
+      window.location.replace(`/roasters/${beanData.roaster.id}/beans/${beanData.id}`)
+      })
+    })
+}
