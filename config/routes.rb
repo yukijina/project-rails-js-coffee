@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :beans
   end
 
+  resources :roasters, only: [:index]
   resources :favorite_and_comments, as: :comments
   resources :users, only: [:show, :new, :create]
 
