@@ -5,7 +5,10 @@ $(function() {
   } else if (window.location.pathname === "/beans/new") {
     loadNewPage()
     clickRoasterForm()
-  } else {
+  } else if (window.location.pathname === "/roasters") {
+    displayRoasters()
+  }
+  else {
     displayShowPage()
   }
 })
@@ -85,14 +88,14 @@ function listeningPageLoad() {
       const indexHTML = bean.indexHTML();
       const beansWrapper = document.getElementById('beans-wrapper')
       beansWrapper.innerHTML += formatHTML + indexHTML;
-      moreClick()
+      clickReadMore()
       //clickBeanForm()
     })
   })
 }
 
 //Click js-more (Read more)-> display whole description
-function moreClick() {
+function clickReadMore() {
   $('.js-more').on('click', function(e) {
     console.log("Read more clicked!")
     e.preventDefault();
