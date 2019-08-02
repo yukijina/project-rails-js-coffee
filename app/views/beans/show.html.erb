@@ -4,24 +4,32 @@
   <!-- render bean details via js -->
 </div>
 
-<hr>
-<p>&#10084; <%= @bean.favorite_and_comments.size %> user's favorite bean</p>
+<hr style="margin: 30px;">
+
+<p>&#10084; <%= favorite_number(@bean.favorite_and_comments) %> user's favorite bean</p>
 
 <div id="comments-wrapper">
   <h3>Comments</h3>
   <!-- render comments via js -->
 </div>
 
+<hr style="margin: 30px;">
 
+<div>
+<p>Do you want to add to your favorite?</p>
 <%= button_to comments_path do %>
-  Want to add to my Favorite!
+  Yes!
   <input type="hidden" name="favorite_and_comment[bean_id]" value="<%= @bean.id %>">
   <input type="hidden" name="favorite_and_comment[favorite]" value="<%= true %>">
 <% end %>
 
+
 <% if flash[:notice] %>
   <div class="notice"><%= flash[:notice] %></div>
 <% end %>
+</div>
+
+<hr style="margin: 30px;">
 
 <button type="button" id="comment-btn">Commment Form</button>
 
