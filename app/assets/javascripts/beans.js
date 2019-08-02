@@ -20,7 +20,6 @@ class Bean {
     this.tasteNote = data.taste_note;
     this.description = data.description;
     this.organic = data.organic;
-    this.fairtrade = data.fairtrade;
     this.origin_1 = data.origin_1;
     this.origin_2 = data.origin_2;
     this.origin_3 = data.origin_3;
@@ -51,7 +50,6 @@ Bean.prototype.showHTML = function() {
   return `
     <p class="js-description-${this.id}">Description: ${this.description}</p>
     <p>Organic: ${this.organic}</p>
-    <p>Fair Trade: ${this.fairtrade}</p>
     <p>Origin: ${this.origin_1}</p>
     <p>Origin: ${this.origin_2}</p>
     <p>Origin: ${this.origin_3}</p>

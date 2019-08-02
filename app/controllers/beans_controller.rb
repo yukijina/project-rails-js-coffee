@@ -40,7 +40,7 @@ class BeansController < ApplicationController
 
   private
   def bean_params
-    params.require(:bean).permit(:brand, :variety, :taste_note, :description, :organic, :fairtrade, :origin_1, :roaster_id, :roaster_attributes => [:roaster_name, :city, :state, :description, :url])
+    params.require(:bean).permit(:brand, :variety, :taste_note, :description, :organic, :origin_1, :roaster_id, :roaster_attributes => [:roaster_name, :city, :state, :description, :url])
   end
 
 end
