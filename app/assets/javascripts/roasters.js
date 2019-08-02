@@ -15,8 +15,8 @@ Roaster.prototype.indexHTML = function() {
     <h2>${this.roaster_name}</h2>
     <p>${this.city}, ${this.state}</p>
     <p>${this.url}</p>
-    <p>${this.description.substring(0,20)}...</p>
-    <button class="js-more-roaster" data-id="${this.id}">Read more</button>
+    <p class="js-roaster-description-${this.id}">${this.description.substring(0,20)}...</p>
+    <button class="js-more" data-id="${this.id}">Read more</button>
     </div>
     `
 }
@@ -28,11 +28,7 @@ function displayRoasters() {
     res.forEach(function(data) {
       roaster = new Roaster(data)
       roasterWrapper.innerHTML += roaster.indexHTML()
+      clickReadMore()
     })
   })
-  clickRead()
-}
-
-function clickRead() {
-
 }
