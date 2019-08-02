@@ -19,10 +19,11 @@ class Bean {
     this.variety = data.variety;
     this.tasteNote = data.taste_note;
     this.description = data.description;
-    this.organic = data.organic;
+    //this.organic = data.organic;
+    this.organic = data.organic === true ? "Yes" : "No" ;
     this.origin_1 = data.origin_1;
-    this.origin_2 = data.origin_2;
-    this.origin_3 = data.origin_3;
+    this.origin_2 = data.origin_2 === null ? "n/a" : data.origin_2 ;
+    this.origin_3 = data.origin_3 === null ? "n/a" : data.origin_3 ;
     this.id = data.id;
     this.roasterName = data.roaster.roaster_name
     this.roaster_id = data.roaster.id
@@ -100,8 +101,14 @@ function clickReadMore() {
     let id = this.dataset.id;
     let roasterId = this.dataset.roasterid;
     $.get("/roasters/" + roasterId + "/beans/" + id + ".json", function(beanData) {
-      const postDescription = document.querySelector(`.js-description-${id}`)
-      postDescription.innerText = `Desctiption:  ${beanData.description}`
+
+      if (window.location.pathname === "/beans") {
+        const beanDescription = document.querySelector(`.js-description-${id}`)
+        beanDescription.innerText = `Desctiption:  ${beanData.description}`
+      } else if (window.location.pathname === "/roasters") {
+        const roasterDescription = document.querySelector(`.js-roaster-description-${id}`)
+        roasterDescription.innerText =  `Desctiption:  ${beanData.roaster.description}`
+      }
     })
   })
 }
