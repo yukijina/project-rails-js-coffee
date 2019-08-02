@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190727213950) do
+ActiveRecord::Schema.define(version: 20190802160823) do
 
   create_table "beans", force: :cascade do |t|
     t.string   "brand"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20190727213950) do
     t.string   "taste_note"
     t.text     "description"
     t.boolean  "organic"
-    t.boolean  "fairtrade"
     t.integer  "roaster_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
