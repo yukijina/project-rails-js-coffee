@@ -21,7 +21,9 @@ class FavoriteAndCommentsController < ApplicationController
         flash[:notice] = "Successfully added to your favorite!"
         redirect_to roaster_bean_path(roaster, bean)
       end
-    elsif params[:favorite_and_comment][:comments]
+    end
+
+    if params[:favorite_and_comment][:comments]
       if fc_data.exists?
         fc_data.update(comments: params[:favorite_and_comment][:comments])
         redirect_to roaster_bean_path(roaster, bean)
